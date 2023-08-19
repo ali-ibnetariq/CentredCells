@@ -13,7 +13,10 @@ jobs:
     timeout-minutes: 30    
     steps:
       - name: Setup Release Environment
-        run: echo "RELEASE_VERSION=0.5.6" >> $GITHUB_ENV
+        run: |
+          echo "RELEASE_VERSION=0.5.6" >> $GITHUB_ENV
+          pwd
+          ls
 
       - name: Install Cocoapods
         run: gem install cocoapods
@@ -37,7 +40,8 @@ jobs:
 
       - name: Copy podspec file
         run: |
-          mkdir -p ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}/${{ env.MODULE_NAME }}.podspec 
+          mkdir -p ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}
+          ls
           cp $GITHUB_WORKSPACE/${{ env.MODULE_NAME }}/Info.plist ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}/Info.plist
 
       - name: commit spec file
