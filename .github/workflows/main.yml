@@ -32,18 +32,25 @@ jobs:
           echo "CocoaPods repos are stored in:"
           echo ~/.cocoapods/repos
           ls ~/.cocoapods/repos
-      
-      - name: Change directory to private-trunk
-        run: |
 
       - name: Copy podspec file
-        run: |        
+        run: |  
+          ls
+          echo "------"
           cd ~/.cocoapods/repos/${{ env.PRIVATE_TRUNK }}
+          echo "------"
           ls
+          echo "------"
           mkdir -p ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}
+          echo "------"
           ls
+          echo "------"
+          ls ${{ env.MODULE_NAME }}
+          echo "------"
           ls $GITHUB_WORKSPACE
+          echo "------"
           ls $GITHUB_WORKSPACE/${{ env.MODULE_NAME }}
+          echo "------"
           cp $GITHUB_WORKSPACE/${{ env.MODULE_NAME }}/Info.plist ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}/Info.plist
 
       - name: commit spec file
