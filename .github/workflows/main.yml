@@ -35,11 +35,11 @@ jobs:
       
       - name: Change directory to private-trunk
         run: |
-          cd ~/.cocoapods/repos/${{ env.PRIVATE_TRUNK }}
-          ls
 
       - name: Copy podspec file
-        run: |
+        run: |        
+          cd ~/.cocoapods/repos/${{ env.PRIVATE_TRUNK }}
+          ls
           mkdir -p ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}
           ls
           ls $GITHUB_WORKSPACE
