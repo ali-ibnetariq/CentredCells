@@ -32,7 +32,7 @@ jobs:
       
       - name: Change directory to private-trunk
         run: |
-          cd Users/runner/.cocoapods/repos/${{ env.PRIVATE_TRUNK }}
+          cd ~/.cocoapods/repos/${{ env.PRIVATE_TRUNK }}
           ls
 
       - name: Copy podspec file
