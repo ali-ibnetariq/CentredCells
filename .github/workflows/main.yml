@@ -1,0 +1,51 @@
+name: Pods POC
+
+  workflow_dispatch:
+  
+env:
+  MODULE_NAME: CentredCells
+  PRIVATE_TRUNK: private-trunk
+  
+jobs:
+  publish-pod:
+    name: publish pod to private trunk
+    runs-on: macos-12
+    timeout-minutes: 30    
+    steps:
+      - name: Setup Release Environment
+        run: echo "RELEASE_VERSION=0.5.6" >> $GITHUB_ENV
+
+      - name: Install Cocoapods
+        run: gem install cocoapods
+
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      - name: Add Private Spec Repository
+        run: pod repo add ${{ env.PRIVATE_TRUNK }} https://github.com/Alamofire/Alamofire.git
+
+      - name: Print CocoaPods repos directory
+        run: |
+          echo "CocoaPods repos are stored in:"
+          echo ~/.cocoapods/repos
+          ls ~/.cocoapods/repos
+      
+      - name: Change directory to private-trunk
+        run: |
+          cd Users/runner/.cocoapods/repos/${{ env.PRIVATE_TRUNK }}
+          ls
+
+      - name: Copy podspec file
+        run: |
+          mkdir -p ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}/${{ env.MODULE_NAME }}.podspec 
+          cp $GITHUB_WORKSPACE/${{ env.MODULE_NAME }}/Info.plist ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}/Info.plist
+
+      - name: commit spec file
+        run: |
+          git add .
+          git commit -m "[Update] ${{ env.MODULE_NAME }} (${{ env.RELEASE_VERSION }})"
+          git push origin main
+        
+
+      # - name: Push Podspec
+      #   run: pod repo push private-trunk ${{ env.MODULE_NAME }}.podspec --verbose --allow-warnings --skip-lint
