@@ -41,6 +41,7 @@ jobs:
       - name: Copy podspec file
         run: |
           mkdir -p ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}
+          ls
           ls $GITHUB_WORKSPACE
           ls $GITHUB_WORKSPACE/${{ env.MODULE_NAME }}
           cp $GITHUB_WORKSPACE/${{ env.MODULE_NAME }}/Info.plist ${{ env.MODULE_NAME }}/${{ env.RELEASE_VERSION }}/Info.plist
