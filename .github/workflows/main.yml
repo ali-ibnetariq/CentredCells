@@ -12,6 +12,8 @@ jobs:
     runs-on: macos-12
     timeout-minutes: 30    
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Setup Release Environment
         run: |
           echo "RELEASE_VERSION=0.5.6" >> $GITHUB_ENV
